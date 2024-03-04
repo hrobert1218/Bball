@@ -1,7 +1,6 @@
 package com.example.bball.Services;
 
-import com.example.bball.DTOs.RequestDTO;
-import com.example.bball.DTOs.ResponseDTO;
+import com.example.bball.DTOs.PlayerResponseDTO;
 import com.example.bball.Models.Player;
 import org.springframework.stereotype.Component;
 
@@ -11,13 +10,13 @@ import java.util.List;
 @Component
 public class MapPlayerToDTO {
 
-    public ResponseDTO converter(Player player){
-        ResponseDTO responseDTO = new ResponseDTO(player.getId(), player.getPlayerName(), player.getPPG());
-        return responseDTO;
+    public PlayerResponseDTO converter(Player player){
+        PlayerResponseDTO playerResponseDTO = new PlayerResponseDTO(player.getId(), player.getPlayerName(), player.getPPG(), player.getHeight(), player.getTeam().getTeamName() , player.getJerseyNumber());
+        return playerResponseDTO;
     }
 
-    public List<ResponseDTO> playerListToDTO (List<Player> players){
-        List<ResponseDTO> dtos =new ArrayList<>();
+    public List<PlayerResponseDTO> playerListToDTO (List<Player> players){
+        List<PlayerResponseDTO> dtos =new ArrayList<>();
         for (Player player : players){
             dtos.add(converter(player));
         }

@@ -1,16 +1,14 @@
 package com.example.bball.Models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
 public class Team {
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String teamName;
 
@@ -25,6 +23,14 @@ public class Team {
         this.teamName = teamName;
         this.owner = owner;
         this.playerList = playerList;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTeamName() {
@@ -49,8 +55,5 @@ public class Team {
 
     public void setPlayerList(List<Player> playerList) {
         this.playerList = playerList;
-    }
-    public long getId() {
-        return id;
     }
 }

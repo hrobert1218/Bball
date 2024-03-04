@@ -1,14 +1,12 @@
 package com.example.bball.Models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Player {
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String playerName;
 
@@ -33,6 +31,14 @@ public class Player {
         this.team = team;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getPlayerName() {
         return playerName;
     }
@@ -45,7 +51,7 @@ public class Player {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(double height) {
         this.height = height;
     }
 
@@ -53,7 +59,7 @@ public class Player {
         return PPG;
     }
 
-    public void setPPG(int PPG) {
+    public void setPPG(double PPG) {
         this.PPG = PPG;
     }
 
@@ -71,9 +77,5 @@ public class Player {
 
     public void setTeam(Team team) {
         this.team = team;
-    }
-
-    public long getId() {
-        return id;
     }
 }
