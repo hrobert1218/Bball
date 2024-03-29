@@ -1,0 +1,32 @@
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysqlasd
+    ports:
+      - 3307:3306
+
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    restart: unless-stopped
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=$$MYSQL_ROOT_PASSWORD --execute \"SHOW DATABASES;\""
+      interval: 10s
+      timeout: 2s
+      retries: 10
+
+  app:
+    image: rob6723/bball-app
+    container_name: app
+
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_HOST: mysqlasd
+      MYSQL_PORT: 3306
+    ports:
+      - 8080:8080
+    depends_on:
+      mysql:
+        condition: service_healthy
+#    command: bash -c "while !</dev/tcp/db/3306; do sleep 1; done && java -jar app.jar"
+    restart: unless-stopped
